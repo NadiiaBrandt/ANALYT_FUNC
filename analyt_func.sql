@@ -30,7 +30,7 @@ FROM
 	(SELECT
 		P.Name
 		,P.ListPrice 
-		,RANK() OVER (PARTITION BY P.ProductSubcategoryID ORDER BY P.ListPrice DESC) AS Rang
+		,RANK() OVER (PARTITION BY P.ProductSubcategoryID ORDER BY P.ListPrice ASC) AS Rang
 	FROM 
 		Production.Product P
 	WHERE  P.ProductSubcategoryID IS NOT NULL) AS R
@@ -73,7 +73,7 @@ FROM
 		JOIN Production.ProductCategory PC
 			ON PSC.ProductSubcategoryID = PC.ProductcategoryID
 	WHERE 
-		SOH.OrderDate BETWEEN '2012-01-01' AND '2014-01-01'
+		SOH.OrderDate BETWEEN '2012-01-01' AND '2013-12-31'
 	GROUP BY 
 		YEAR(SOH.OrderDate)
 		,PC.Name) AS R
